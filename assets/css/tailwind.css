@@ -1,0 +1,389 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* app transitions */
+.page-enter-active,.page-leave-active, .loading  {  transition: all 0.4s;}
+.page-enter-from,.page-leave-to {  opacity: 0;}
+
+.loading {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  pointer-events: none;
+background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
+}
+
+.loading::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 2;
+  pointer-events: none;
+  background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
+}
+
+
+@keyframes circle-loading {
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+.header {
+  z-index: 2000;
+}
+
+.loading span {
+  display: block;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-top-color: #4ade80;
+  animation: circle-loading 1200ms ease infinite;
+}
+
+.component-app__wrap-sliderHero::before {
+  content: "";
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 2;
+  pointer-events: none;
+  background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
+}
+
+.component-app__wrap-slideHero {
+  position: relative;
+  height: 0;
+}
+
+.component-app__linear-black {
+  content: "";
+  z-index: 2;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-image: linear-gradient(to right, #111827, rgba(0, 0, 0, 0));
+}
+
+.component-app__wrap-slideHero img, 
+.component-app__wrap-movieCard img,
+.postImage-bck img,
+.postImage-cover img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: all .5s ease-in-out;
+}
+
+.component-app__wrap-slideHero p {
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 0.00938em;
+  text-align: justify;
+  display: -webkit-box;
+  overflow: hidden;
+  -moz-box-orient: vertical;
+  -webkit-line-clamp: 10;
+}
+
+.component-app__wrap-movieCard {
+  padding-top: 130%;
+}
+
+.component-app__wrap-movieCard-info {
+  position: absolute;
+  width: 100%;
+  opacity: 1;
+  bottom: 0px;
+  padding: 20px;
+  background-image: linear-gradient(to top, rgb(0, 0, 0), rgba(255, 255, 255, 0));
+  transition: all 0.3s ease 0s;
+}
+
+.precent-bar {
+  height: 8px;
+  width: 100%;
+  background-color: rgba(255, 252, 252, 0.1);
+}
+
+.precent-bar .precent-per {
+  position: relative;
+  display: block;
+  height: 100%;
+  border: 1px solid #fff;
+}
+
+.precent-bar .nr.precent-per {
+  border: none;
+}
+
+.precent-per .percent-tooltip {
+  position: absolute;
+  right: 0px;
+  top: -13px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  padding: 2px 4px;
+  z-index: 100;
+}
+
+.postImage-bck::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
+  z-index: 1000;
+}
+
+.postImage__aspect-ratio {
+  padding-top: 60%;
+}
+
+.postImage-cover__aspect-ratio {
+  padding-top: 130%;
+}
+ .postImage-pst__info, .postImage-cover {
+  z-index: 1000;
+}
+
+.postImage-pst {
+  display: flex;
+  flex-direction: column;
+  margin-top: -10rem;
+}
+
+/* slider */
+.swiperList.swiper {
+  padding-bottom: 2rem;
+}
+.swiperList .swiper-pagination-bullet:not(.swiper-pagination-bullet-active) {
+  background-color: #fff;
+  opacity: 1;
+} 
+.swiperList .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: crimson;
+}
+
+.current {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.pagination span {
+  cursor: pointer;
+  width: 2rem;
+  text-align: center;
+}
+
+/* Modal */
+
+#modal1 {
+  width:100%;
+  max-width:100%
+ }
+
+ .modal {
+  background: rgb(17,24,39,.75);
+  animation: fadeIn .3s both;
+}
+
+.modal[aria-modal="false"] {
+  animation-name: fadeOut;
+  left: -100rem;
+}
+
+.modal[aria-hidden=true] {
+  animation-name:fadeIn;
+  left:0
+ }
+
+ .modal-wrapper {
+  animation: slideRight 1s both;
+}
+
+
+.videos-trailer {
+  overflow:auto;
+  position:relative;
+  width:100%;
+  height:0;
+  padding-bottom:56.25%
+}
+
+.iframe-cont {
+  width:100% !important;
+  height:100% !important;
+  display:block;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  z-index:50000
+ }
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+   opacity:0;
+   visibility:hidden;
+   z-index:0
+  }
+  to {
+   opacity:1;
+   visibility:visible;
+   z-index:5000
+  }
+ }
+ @keyframes fadeOut {
+  from {
+   opacity:1;
+   visibility:visible
+  }
+  to {
+   opacity:0;
+   visibility:hidden
+  }
+ }
+ @keyframes slideRight {
+  from {
+   transform:translateX(-3.125rem)
+  }
+  to {
+   transform:translateX(0rem)
+  }
+ }
+ @keyframes slideLeft {
+  from {
+   transform:translateX(0rem)
+  }
+  to {
+   transform:translateX(-3.125rem)
+  }
+ }
+/* Animation */
+
+@media screen and (min-width: 768px) {
+  
+  .postImage-pst {
+    margin-top: -18rem;
+    flex-direction: row;
+  }
+
+  
+  .postImage-cover {
+    width: 30%;
+    margin: 0 2rem;
+    z-index: 1000;
+  }
+
+  .postImage-pst__info {
+    width: 60%;
+  }
+
+  .postImage-cover img {
+    object-position: center;
+  }
+
+  .iframe-cont {
+    width:80% !important;
+    height:80% !important
+   }
+
+   .modal-wrapper .swiperList.swiper {
+    padding-bottom: 0;
+   }
+
+}
+
+@media screen and (min-width: 1200px){
+
+  .component-app__wrap-slideHero img, 
+  .component-app__wrap-movieCard img,
+  .postImage-bck img {
+    object-position: center;
+  }
+
+  .component-app__aspect-ratio {
+    padding-top: 53%;
+  }
+  
+  .component-app__wrap-movieCard:hover img {
+    transform: scale(1.2);
+  } 
+
+  .component-app__wrap-movieCard {
+    padding-top: 160%;
+  }
+
+  .component-app__wrap-movieCard-info {
+    opacity: 0;
+    bottom: -20px;
+    padding: 2rem 1rem;
+  }
+  
+  .component-app__wrap-movieCard:hover .component-app__wrap-movieCard-info {
+    opacity: 1;
+    bottom: 0px;
+  }
+
+}
+
+  @media (min-width: 900px) and (max-width: 1200px){
+    .component-app__aspect-ratio {
+      padding-top: 60%;
+    }
+
+    .postImage__aspect-ratio {
+      padding-top: 60%;
+    }
+
+  }
+
+  @media (min-width: 600px) and (max-width: 900px) {
+    .component-app__aspect-ratio {
+      padding-top: 80%;
+    }
+
+    .postImage__aspect-ratio {
+      padding-top: 40%;
+    }
+
+  }
+
+  @media (min-width: 0px) and (max-width: 600px) {
+    .component-app__aspect-ratio {
+      padding-top: 130%;
+    }
+  }
+
+
+  @media (min-width: 0px) and (max-width: 768px){
+    .postImage-cover {
+      width: 50%;
+      margin: 0px auto 4rem;
+    }
+    
+  }
