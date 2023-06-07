@@ -1,6 +1,6 @@
 # Nuxt 3 Minimal Starter
 
-Nous allons construire une Application Nuxt 3. Nous utiliserons l'API themoviedb pour récupérer les données et les afficher sur notre Application Nuxt 3. Pour la conception, nous utiliserons TailwindCSS, et à la fin, nous le déploierons dans Vercel.
+Nous allons construire une Application Nuxt 3. Nous utiliserons l'API themoviedb pour récupérer les données et les afficher sur notre Application Nuxt 3. Pour la conception, nous utiliserons TailwindCSS, et à la fin, nous le déploierons dans Netlify.
 
 ## Setup
 
