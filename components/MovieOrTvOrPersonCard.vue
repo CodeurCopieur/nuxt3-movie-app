@@ -1,8 +1,22 @@
 <script setup>
   const { items, type } = defineProps(['items', 'type']);
+    import { gsap } from 'gsap';
+  const beforeEnter = (el) => {
+		el.style.opacity = 0
+		el.style.transform = 'translateY(60px)'
+	}
+
+	const enter = (el) => {
+		gsap.to(el, {
+			duration: 1,
+			y: 0,
+			opacity: 1,
+			delay: el.dataset.index * 1
+		})
+	};
 </script>
 <template>
-
+  <transition-group appear @before-enter="beforeEnter" @enter="enter">
     <NuxtLink 
           v-for="(item, i) in items"
           :key="i" 
@@ -59,4 +73,5 @@
           <span class="relative text-white">{{ item.original_title || item.original_name || item.name }}</span>
         </span>
       </NuxtLink>
+  </transition-group>
 </template>
