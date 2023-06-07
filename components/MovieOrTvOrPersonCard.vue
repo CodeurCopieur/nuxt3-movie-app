@@ -10,8 +10,23 @@
         <div class=" shadow-lg border border-gray-700 component-app__wrap-movieCard relative overflow-hidden">
 
             <picture>
-              <img v-if="type === 'movie' || type === 'tv'" :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`" :alt="item.original_title || item.original_name">
-              <img v-else :src="`https://image.tmdb.org/t/p/original/${item.profile_path}`" :alt="item.name || item.original_name">
+              <source
+                v-if="type === 'movie' || type === 'tv'"
+                :srcset="`https://image.tmdb.org/t/p/w500${item.poster_path}`"
+                type="image/jpeg">
+              <source
+                v-else
+                :srcset="`https://image.tmdb.org/t/p/w500${item.profile_path}`"
+                type="image/jpeg">
+              <img 
+                v-if="type === 'movie' || type === 'tv'" 
+                :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" 
+                :alt="item.original_title || item.original_name"
+                loading="lazy">
+              <img v-else 
+                :src="`https://image.tmdb.org/t/p/w500${item.profile_path}`" 
+                :alt="item.name || item.original_name"
+                loading="lazy">
             </picture>
 
             <div class="component-app__wrap-movieCard-info">

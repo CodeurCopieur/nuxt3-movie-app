@@ -71,7 +71,13 @@
             <div class="component-app__aspect-ratio"></div>
             <div class="component-app__linear-black"></div>
             <picture>
-                <img :src="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`" class="swiper-lazy" :alt="movie.original_title">
+                <source :srcset="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`" media="(min-width: 768px)">
+                <source :srcset="`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`">
+                <img 
+                    :data-src="`https://image.tmdb.org/t/p/w200${movie.backdrop_path}`" 
+                    class="swiper-lazy" 
+                    :alt="movie.original_title"
+                    loading="lazy">
             </picture>
 
         </SwiperSlide>

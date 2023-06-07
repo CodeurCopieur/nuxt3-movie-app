@@ -91,7 +91,9 @@ if (type === 'videos') {
           <picture>
             <img 
               class="absolute inset-0 object-cover w-full h-full"
-              :src="`https://image.tmdb.org/t/p/original/${item.poster_path || item.profile_path}`" :alt="`${item.original_title || item.original_name || item.name}`">
+              :src="`https://image.tmdb.org/t/p/w300${item.poster_path || item.profile_path}`" 
+              :alt="`${item.original_title || item.original_name || item.name}`"
+              loading="lazy">
           </picture>
           <div 
             v-if="type === 'movie' && item.vote_average > 1 || type ==='tv' && item.vote_average > 1"
