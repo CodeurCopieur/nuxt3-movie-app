@@ -47,7 +47,7 @@
                                 class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"
                                 :class="{ 'mr-1' : i != getTitle(movie.genre_ids).length -1  }"> 
                                 <NuxtLink 
-                                    :to="{query: {type: type , name: title.name.toLowerCase(), page: 1}, path:`/genres/${title.id}`}"
+                                    :to="{query: {type: type , name: title.name.toLowerCase()}, path:`/genres/${title.id}`}"
                                     class="text-base">{{ title.name }}</NuxtLink>
                             </li>
                         </ul>
