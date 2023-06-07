@@ -24,6 +24,22 @@
     const filteredObjects = computed(() => genres.filter(obj => arrayId.includes(obj.id)));
     return filteredObjects.value
   };
+
+    // Fonction pour générer une URL d'image optimisée en fonction de la taille et du format
+  const generateOptimizedImageUrl = (path, size) => {
+    const baseUrl = 'https://image.tmdb.org/t/p/';
+    const imageSize = {
+      original: 'original',
+      large: 'w1280',
+      medium: 'w780',
+      small: 'w300',
+    };
+
+    const optimizedPath = path ? path : '/w500null'; // Remplacer par un chemin d'image d'espace réservé
+
+    return `${baseUrl}${imageSize[size]}${optimizedPath}`;
+  };
+  
 </script>
 <template>
     <div class="component-app__wrap-sliderHero relative">
@@ -48,7 +64,7 @@
                                 :class="{ 'mr-1' : i != getTitle(movie.genre_ids).length -1  }"> 
                                 <NuxtLink 
                                     :to="{query: {type: type , name: title.name.toLowerCase()}, path:`/genres/${title.id}`}"
-                                    class="text-base">{{ title.name }}</NuxtLink>
+                                    class="text-base text-xs">{{ title.name }}</NuxtLink>
                             </li>
                         </ul>
                         
@@ -71,10 +87,9 @@
             <div class="component-app__aspect-ratio"></div>
             <div class="component-app__linear-black"></div>
             <picture>
-                <source :srcset="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`" media="(min-width: 768px)">
-                <source :srcset="`https://image.tmdb.org/t/p/w300${movie.backdrop_path}`">
+                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path || movie.backdrop_path, 'original')" media="(min-width: 768px)">
+                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path || movie.backdrop_path, 'medium')" media="(max-width: 768px)">
                 <img 
-                    :data-src="`https://image.tmdb.org/t/p/w200${movie.backdrop_path}`" 
                     class="swiper-lazy" 
                     :alt="movie.original_title"
                     loading="lazy">

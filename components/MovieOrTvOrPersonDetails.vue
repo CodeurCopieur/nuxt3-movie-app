@@ -23,6 +23,21 @@
     state.personCreditsMovies = await useMoviesApi().personCredits('movie', `${id}`)
     state.personCreditsTv = await useMoviesApi().personCredits('tv', `${id}`)
   }
+
+  // Fonction pour générer une URL d'image optimisée en fonction de la taille et du format
+  const generateOptimizedImageUrl = (path, size) => {
+    const baseUrl = 'https://image.tmdb.org/t/p/';
+    const imageSize = {
+      original: 'original',
+      large: 'w1280',
+      medium: 'w780',
+      small: 'w300',
+    };
+
+    const optimizedPath = path ? path : '/w500null'; // Remplacer par un chemin d'image d'espace réservé
+
+    return `${baseUrl}${imageSize[size]}${optimizedPath}`;
+  };
   
 
 </script>
@@ -34,11 +49,14 @@
       :class="{'h-[350px] sm:h-[550px]': type === 'person'}">
         <div class="postImage__aspect-ratio"></div>
         <picture>
-
-          <img v-if="type === 'movie' || type ==='tv' || type === 'person'"
-          class="h-auto"
-          :src="`https://image.tmdb.org/t/p/original${data.backdrop_path || data.profile_path}`"
-          :alt="`${data.original_title || data.original_name || data.name}`" />
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'original')" type="image/webp">
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')" type="image/jpeg">
+          <img 
+            v-if="type === 'movie' || type ==='tv' || type === 'person'"
+            class="h-auto"
+            loading="lazy"
+            :src="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')"
+            :alt="`${data.original_title || data.original_name || data.name}`" />
 
         </picture>
       </div>
@@ -46,10 +64,12 @@
         <div class="postImage-cover relative">
           <div class="postImage-cover__aspect-ratio"></div>
             <picture>
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'original')" type="image/webp">
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" type="image/jpeg">
               <img 
                 v-if="type === 'movie' || type ==='tv' || type === 'person'"
                 class="h-auto"
-                :src="`https://image.tmdb.org/t/p/original${data.poster_path || data.profile_path}`"
+                :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')"
                 :alt="`${data.original_title || data.original_name || data.name}`">
 
             </picture>
