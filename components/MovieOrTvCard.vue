@@ -5,53 +5,49 @@
     const page = ref(1);
 
     const movies = ref([]);
+    const scrollingComponent = ref(null)
+    const isLoading = ref(true) // Ajout de la variable isLoading pour afficher une icône de chargement
     movies.value = await useMoviesApi().getMovies(`discover/${type}`, 1);
 
-    async function pageCall(resBool) {
-      window.scrollTo({
-        top: mainOffsetT,
-        behavior: "smooth"
-      })
+    async function loadMorePosts () {
+      // window.scrollTo({
+      //   top: mainOffsetT,
+      //   behavior: "smooth"
+      // })
 
-      if (resBool) {
-        page.value++
-      } else {
-        page.value--
-      }
-    
-      movies.value = ''
-      movies.value = await useMoviesApi().getMovies(`discover/${type}`, page.value)
+      page.value++
+      const newMovies = await useMoviesApi().getMovies(`discover/${type}`, page.value)
+      movies.value.push(...newMovies)
     };
 
-    async function handleBlur() {
-      if(page.value === "" || page.value === null || page.value > 500) {
 
-        page.value = 1
-        movies.value = ''
-        movies.value = await useMoviesApi().getMovies(`discover/${type}`, 1)
-      } else {
-        movies.value = ''
-        movies.value = await useMoviesApi().getMovies(`discover/${type}`, page.value)
-      }
-    }
+    const scrollTriger = ()=> {
+        const observer = new IntersectionObserver( (entries) => {
+        entries.forEach( entry => {
+          if(entry.intersectionRatio > 0 ) {
+            setTimeout(()=> {
+              loadMorePosts()
+            },100)
+          }
+        });
+      });
+      observer.observe(scrollingComponent.value);
+    };
+
+      onMounted(()=> {
+        scrollTriger()
+      });
 </script>
 
-<template ref="mainOffsetTRef">
+<template>
 
-  <div class="container max-w-xs mx-auto pagination">
-      <div class="flex justify-center items-center">
-        <span class="my-5" @click="pageCall(false)" v-if="page > 1">P</span>  
-        <input class="my-5 w-16 border-b-4 border-blue-800 current text-center outline-none" 
-          @input="handleBlur" 
-          v-model.number="page" min="1" max="500" type="number" style="color: #111827"/>  
-        <span class="my-5" @click="pageCall(true)" >N</span>
-        
-      </div>
-  </div>
   <div 
     v-if="movies.length"
     class="container max-w-7xl max-w-2xl mx-auto px-4 py-8 lg:max-w-7xl grid grid-cols-2 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 
     <MovieOrTvOrPersonCard :items="movies" :type="type" />
+  </div>
+  <div class="container max-w-xs mx-auto pagination" ref="scrollingComponent">
+    <Loading/>
   </div>
 </template>

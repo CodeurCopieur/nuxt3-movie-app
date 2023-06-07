@@ -5,72 +5,50 @@
   const {name, type} = useRoute().query;
   const page = ref(1);
   const movies = ref([]);
-  const mainOffsetTRef = ref(null)
+  const scrollingComponent = ref(null)
 
+  // const mainOffsetTRef = ref(null)
+  // const mainOffsetT = mainOffsetTRef.value
   movies.value = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`);
 
- const mainOffsetT = mainOffsetTRef.value
-
-
-  if (name === '' || type === '' || id === ''  && type === ''   && page && name) {
-    router.push('/genres')
-  } else {
-    router.push({query: {type: type, name: name, page: page.value}, path:`/genres/${id}`})
-  }
-    
-
-
-  async function pageCall(resBool) {
-    window.scrollTo({
-      top: mainOffsetT,
-      behavior: "smooth"
-    })
-
-    if (resBool) {
-      page.value++
-    } else {
-      page.value--
-    }
+  async function loadMorePosts () {
+    // window.scrollTo({
+    //   top: mainOffsetT,
+    //   behavior: "smooth"
+    // })
   
-    movies.value = ''
-    router.push({query: {type: type, name: name, page: page.value}, path:`/genres/${id}`})
-    movies.value = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`)
+    page.value++
+    const newMovies = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`)
+    movies.value.push(...newMovies)
   };
 
-      async function handleBlur() {
-      if(page.value === "" || page.value === null || page.value > 500) {
+  const scrollTriger = ()=> {
+    const observer = new IntersectionObserver( (entries) => {
+      entries.forEach( entry => {
+        if(entry.intersectionRatio > 0 ) {
+          setTimeout(()=> {
+            loadMorePosts()
+          },100)
+        }
+      });
+    });
+    observer.observe(scrollingComponent.value);
+  };
 
-        page.value = 1
-        movies.value = ''
-        router.push({query: {type: type, name: name, page: 1}, path:`/genres/${id}`})
-        movies.value = await useMoviesApi().getMoviesD(`discover/${type}`, 1, `${id}`)
-      } else {
-        movies.value = ''
-        router.push({query: {type: type, name: name, page: page.value}, path:`/genres/${id}`})
-        movies.value = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`)
-      }
-    }
-
+  onMounted(()=> {
+    scrollTriger()
+  });
 </script>
 <template ref="mainOffsetTRef">
 
-<div class="container max-w-xs mx-auto pagination">
-    <div class="flex justify-center items-center">
-      <span class="my-5 w-full" @click="pageCall(false)" v-if="page > 1">P</span>  
-      <input class="my-5 w-16 border-b-4 border-blue-800 current text-center outline-none" 
-        @input="handleBlur" 
-        v-model.number="page" min="1" max="500" type="number" style="color: #111827"/>  
-      <span class="my-5 w-full" @click="pageCall(true)" >N</span>
-      
-    </div>
-</div>   
+  <div 
+    v-if="movies.length"
+    class="container max-w-7xl max-w-2xl mx-auto px-4 py-8 lg:max-w-7xl grid grid-cols-1 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 
-<div 
-  v-if="movies.length"
-  class="container max-w-7xl max-w-2xl mx-auto px-4 py-8 lg:max-w-7xl grid grid-cols-1 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <MovieOrTvOrPersonCard :items="movies" :type="type"></MovieOrTvOrPersonCard>
+  </div>
 
-  <MovieOrTvOrPersonCard :items="movies" :type="type"></MovieOrTvOrPersonCard>
-</div>
-
-
+  <div class="container max-w-xs mx-auto pagination" ref="scrollingComponent">
+    <Loading/>
+  </div>
 </template>
