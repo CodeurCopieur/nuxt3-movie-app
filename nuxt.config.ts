@@ -4,16 +4,22 @@ export default defineNuxtConfig({
     head: {      
       charset: 'utf-16',      
       viewport: 'width=device-width, initial-scale=1',      
-      title: 'Movie Website',      
-      meta: [             
+      title: 'Movie Website with Nuxt 3 and Themoviedb',      
+      meta: [
+      { name: 'keywords', content: 'Nuxt, themoviedb, VueJS'},             
       { name: 'description', content: 'Movie Website with Nuxt 3 and Themoviedb' } ,
-      { property: "og:title",  content:'Movie Website with Nuxt 3'}],
+      { name: 'author', content: 'Widdy Louis'},
+      { name: 'copyright', content: '© Copyright 2020 - Widdy Louis'},
+    
+      { property: "og:title",  content: 'Movie Website with Nuxt 3'},
+      { property: "og:type",  content: 'website'},],
+      
       link: [
         {rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons'}
       ],
       bodyAttrs: {    class: 'min-h-screen'  },
     },
-    // pageTransition: { name: 'page', mode: 'out-in' },  
+    pageTransition: { name: 'page', mode: 'out-in' },  
   },  
   runtimeConfig: {
     public: {
