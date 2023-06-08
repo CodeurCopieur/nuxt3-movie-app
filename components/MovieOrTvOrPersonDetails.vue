@@ -49,13 +49,12 @@
       :class="{'h-[350px] sm:h-[550px]': type === 'person'}">
         <div class="postImage__aspect-ratio"></div>
         <picture>
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'original')" type="image/webp">
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')" type="image/jpeg">
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')" media="(min-width: 768px)">
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'small')" media="(max-width: 768px)">
           <img 
             v-if="type === 'movie' || type ==='tv' || type === 'person'"
             class="h-auto"
             loading="lazy"
-            :src="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')"
             :alt="`${data.original_title || data.original_name || data.name}`" />
 
         </picture>
@@ -64,12 +63,11 @@
         <div class="postImage-cover relative">
           <div class="postImage-cover__aspect-ratio"></div>
             <picture>
-              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'original')" type="image/webp">
-              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" type="image/jpeg">
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)">
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)">
               <img 
                 v-if="type === 'movie' || type ==='tv' || type === 'person'"
                 class="h-auto"
-                :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')"
                 :alt="`${data.original_title || data.original_name || data.name}`">
 
             </picture>
