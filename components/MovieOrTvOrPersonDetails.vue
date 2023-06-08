@@ -1,8 +1,9 @@
 <script setup>
   const { type } = defineProps(['type']);
   const {id} = useRoute().params;
+  const moviesApi = useMoviesApi();
   
-  const data = await useMoviesApi().getDetails(`${type}`, `${id}`);
+  const data = await moviesApi.getDetails(`${type}`, `${id}`);
 
   const state = reactive({
     isOpen: false,
@@ -18,6 +19,8 @@
     state.infos = await useMoviesApi().credits(`${type}`, `${id}`)
     state.recommendations = await useMoviesApi().recommendations(`${type}`, `${id}`)
     state.videos = await  useMoviesApi().videos(`${type}`, `${id}`)
+
+    console.log(state.videos );
 
   } else if (type === 'person') {
     state.personCreditsMovies = await useMoviesApi().personCredits('movie', `${id}`)
@@ -139,10 +142,11 @@
             <p class="mt-8 text-sm text-base mb-6">{{ data.overview || data.biography}}</p>
 
             <button 
-              v-if="type === 'movie' && state.videos || type === 'tv' && state.videos"
+              v-if="(type === 'movie' || type === 'tv') && (state.videos)"
               @click="state.isOpen = !state.isOpen" class="inline-block py-1 px-6 border-b-4 border-blue-800 mb-8 cursor-pointer">
               <span>Regarder</span>
             </button>
+
 
             <teleport to="body">
               <aside id="modal1" class="modal fixed top-0 left-0 w-full h-full overflow-hidden" role="dialog" aria-labelledby="popinquizz" :aria-modal="state.isOpen" v-if="state.isOpen">
@@ -154,7 +158,7 @@
               </aside>
             </teleport>
 
-            <div class="recommended mb-12" v-if="type === 'movie' || type === 'tv'">
+            <div class="recommended mb-12" v-if="(type === 'movie' || type === 'tv') && state.infos.cast.length > 0">
               <h2 class="text-white-600 mb-1">
                 <span class="border-b-4 border-blue-800 text-lg">Têtes d'affiche</span>
               </h2>
@@ -166,13 +170,13 @@
       </div> 
 
       <div class="recommended container max-w-7xl mx-auto px-4 md:px-8">
-        <div v-if="type === 'person' && state.personCreditsMovies">
+        <div v-if="type === 'person' && state.personCreditsMovies && state.personCreditsMovies.cast.length > 0">
           <h2 class="text-white-600 mb-1">
             <span class="border-b-4 border-blue-800 text-lg">Films</span>
           </h2>
           <MovieOrTvSlider :type="'movie'" :items="state.personCreditsMovies.cast"/> 
         </div>
-        <div v-if="type === 'person' && state.personCreditsTv">
+        <div v-if="type === 'person' && state.personCreditsTv && state.personCreditsTv.cast.length > 0">
           <h2 class="text-white-600 mb-1">
             <span class="border-b-4 border-blue-800 text-lg">Series</span>
           </h2>
@@ -180,7 +184,7 @@
         </div>
       </div>
 
-      <div class="recommended container max-w-7xl mx-auto px-4 md:px-8" v-if="type === 'movie' && state.recommendations.length || type === 'tv' && state.recommendations.length">
+      <div class="recommended container max-w-7xl mx-auto px-4 md:px-8" v-if="(type === 'movie' || type === 'tv') && state.recommendations.length > 0">
         <h2 class="text-white-600 mb-1">
           <span class="border-b-4 border-blue-800 text-lg">Tu pourrais aussi aimer</span>
         </h2>
