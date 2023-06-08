@@ -77,7 +77,7 @@
             <h4 class="text-xs text-2xl sm:text-3xl font-bold mb-2">{{ data.title || data.original_name || data.name }}</h4>
             <p class="text-xs mb-6" v-if="data.release_date || data.first_air_date"> {{ useMoviesApi().getDate(data.release_date || data.first_air_date) }}</p>
 
-            <ul class="flex flex-nowrap mb-6" v-if="type === 'movie' || type === 'tv'">
+            <ul class="flex flex-wrap mb-6" v-if="type === 'movie' || type === 'tv'">
                 <li 
                     v-for="(title, i) in data.genres" :key="i"
                     class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"
@@ -87,7 +87,7 @@
                         class="text-base">{{ title.name }}</NuxtLink>
                 </li>
             </ul>
-            <ul v-else class="flex flex-nowrap mb-6">
+            <ul v-else class="flex flex-wrap mb-6">
               <li class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"> {{ data.known_for_department }}</li>
             </ul>
 
