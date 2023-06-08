@@ -1,7 +1,10 @@
 <script setup>
   const { type, theme, items } = defineProps(['type', 'theme', 'items']);
   const state = reactive({
-    res: []
+    res: [],
+  isVideosLoaded: false,
+  loadedVideos: [],
+  error: '', // Variable pour stocker l'erreur
   })
 
   if (type === 'movie' && theme === 'popular' || type === 'movie' && theme === 'top_rated'  || type === 'tv' && theme === 'popular' || type === 'tv' && theme === 'top_rated') {
@@ -12,14 +15,29 @@
     state.res = items
   }
 
-if (type === 'videos') {
-  const filter = items.filter((item) => {
-    if (item.site === 'YouTube' && item.type === 'Trailer'  ) {
-      return item
-    }
-  })
-  state.res = filter
-}
+const loadVideos = () => {
+  if (type === 'videos') {
+    const filter = items.filter((item) => {
+      if (item.site === 'YouTube' && item.type === 'Trailer') {
+        return item;
+      }
+    });
+    if (filter.length > 0) {
+        state.res = filter;
+        state.isVideosLoaded = true;
+
+        filter.forEach((video) => {
+          state.loadedVideos.push(video.key);
+        });
+      } else {
+        // Gestion de l'erreur : Aucune vidéo trouvée
+        state.error = 'Aucune vidéo trouvée.';
+      }
+  }
+};
+
+loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initialisation du composant
+
 
   const thumbnailSwiperParams = {
       spaceBetween: 10,
@@ -132,9 +150,21 @@ if (type === 'videos') {
         class="shadow-xl shadow-custom"
         :class="{'overflow-hidden': type === 'videos' }">
           <div class="videos-trailer">
-            <iframe class="iframe-cont" width="560" height="315" :src="`https://www.youtube.com/embed/${item.key}`" :title="`${item.name}`" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe class="iframe-cont" 
+              width="560" 
+              height="315" 
+              :src="`https://www.youtube.com/embed/${item.key}`" 
+              :title="`${item.name}`" frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
       </SwiperSlide>
     </swiper>
   </template>
+
+  <!-- Afficher l'erreur si elle existe -->
+    <!-- Afficher l'erreur si elle existe -->
+  <div v-if="state.error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative mt-4" role="alert">
+    <strong class="font-bold">Erreur : </strong>
+    <span class="block sm:inline">{{ state.error }}</span>
+  </div>
 </template>
