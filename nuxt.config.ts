@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     head: {      
       charset: 'utf-16',      
       viewport: 'width=device-width, initial-scale=1',      
-      title: 'Movie Website with Nuxt 3 and Themoviedb',      
+      title: 'Movie Website | Nuxt 3 and Themoviedb',      
       meta: [
       { name: 'keywords', content: 'Nuxt, themoviedb, VueJS'},             
       { name: 'description', content: 'Movie Website with Nuxt 3 and Themoviedb' } ,
