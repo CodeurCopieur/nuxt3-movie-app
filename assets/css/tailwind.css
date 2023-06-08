@@ -148,7 +148,7 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
 }
 
 .postImage-cover__aspect-ratio {
-  padding-top: 130%;
+  padding-top: 160%;
 }
  .postImage-pst__info, .postImage-cover {
   z-index: 1000;
@@ -275,6 +275,10 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
   .postImage-pst {
     margin-top: -18rem;
     flex-direction: row;
+  }
+
+  .postImage-cover__aspect-ratio {
+    padding-top: 130%;
   }
 
   
