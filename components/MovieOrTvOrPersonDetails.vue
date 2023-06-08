@@ -80,7 +80,7 @@
             <ul class="flex flex-wrap mb-6" v-if="type === 'movie' || type === 'tv'">
                 <li 
                     v-for="(title, i) in data.genres" :key="i"
-                    class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"
+                    class="border-b-4 border-blue-800 px-1 py-0"
                     :class="{ 'mr-1' : i != data.genres.length -1  }"> 
                     <NuxtLink 
                         :to="{query: {type: type , name: title.name.toLowerCase().replace(/%/g, ''), page: 1}, path:`/genres/${title.id}`}"
@@ -88,7 +88,7 @@
                 </li>
             </ul>
             <ul v-else class="flex flex-wrap mb-6">
-              <li class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"> {{ data.known_for_department }}</li>
+              <li class="border-b-4 border-blue-800 px-1 py-0"> {{ data.known_for_department }}</li>
             </ul>
 
             <div v-if="type === 'movie' && data.vote_average > 1 || type ==='tv' && data.vote_average > 1" 
@@ -101,7 +101,7 @@
               </span>
             </div>
 
-            <div v-else-if="type === 'movie' && item.vote_average === 0 || type ==='tv' && item.vote_average === 0" 
+            <div v-else-if="type === 'movie' && data.vote_average === 0 || type ==='tv' && data.vote_average === 0" 
             class="precent-bar mt-8">
               <span class="precent-per nr inline-block bg-red-600" style="width:0%;">
                   <span class="percent-tooltip inline-block bg-red-600 nr" style="right: -25px; top: -12px;">NR</span>
@@ -140,7 +140,7 @@
 
             <button 
               v-if="type === 'movie' && state.videos || type === 'tv' && state.videos"
-              @click="state.isOpen = !state.isOpen" class="inline-block py-1 px-6 bg-[#111827] border-b-4 border-blue-800 mb-8 cursor-pointer">
+              @click="state.isOpen = !state.isOpen" class="inline-block py-1 px-6 border-b-4 border-blue-800 mb-8 cursor-pointer">
               <span>Regarder</span>
             </button>
 
