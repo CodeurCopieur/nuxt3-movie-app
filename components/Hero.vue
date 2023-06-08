@@ -57,10 +57,10 @@
                     <div class="px-8">
                         <h3 class="text-xs text-lg text-4xl font-extrabold mb-5">{{ movie.original_title}}</h3>
                         
-                        <ul class="flex flex-nowrap mb-6">
+                        <ul class="flex flex-wrap mb-6">
                             <li 
                                 v-for="(title, i) in getTitle(movie.genre_ids)" :key="i"
-                                class="bg-[#111827] border-b-4 border-blue-800 px-1 py-0"
+                                class="border-b-4 border-blue-800 px-1 py-0"
                                 :class="{ 'mr-1' : i != getTitle(movie.genre_ids).length -1  }"> 
                                 <NuxtLink 
                                     :to="{query: {type: type , name: title.name.toLowerCase()}, path:`/genres/${title.id}`}"
@@ -77,7 +77,7 @@
                         </div>
 
                         <p class="text-xs text-lg leading-normal mb-6">{{ movie.overview.substring(0,200)+".." }}</p>
-                        <a :href="`movie/${movie.id}`" class="inline-block py-1 px-6 bg-[#111827] border-b-4 border-blue-800">
+                        <a :href="`movie/${movie.id}`" class="inline-block py-1 px-6 border-b-4 border-blue-800">
                             <span>PLUS</span>
                         </a>
                     </div>
