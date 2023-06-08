@@ -2,7 +2,7 @@
   useHead({
     title: 'Movie | Nuxt 3 and Themoviedb',
     meta: [
-      {name: 'description', content: 'Cette page les films'}
+      {name: 'description', content: 'Les films'}
     ]
   });
 </script>
