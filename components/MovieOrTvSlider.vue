@@ -162,8 +162,7 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
   </template>
 
   <!-- Afficher l'erreur si elle existe -->
-    <!-- Afficher l'erreur si elle existe -->
-  <div v-if="state.error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative mt-4" role="alert">
+  <div v-if="state.error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative mt-4  text-center" role="alert">
     <strong class="font-bold">Erreur : </strong>
     <span class="block sm:inline">{{ state.error }}</span>
   </div>
