@@ -55,7 +55,7 @@
             <div class="absolute z-10 h-full">
                 <div class="w-full md:min-w-3xl md:max-w-3xl  xl:pl-40 p-0 h-full flex items-center md:mr-auto md:ml-0 mx-auto">
                     <div class="px-8">
-                        <h3 class="text-xs text-lg text-4xl font-extrabold mb-5">{{ movie.original_title}}</h3>
+                        <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5">{{ movie.original_title}}</h3>
                         
                         <ul class="flex flex-wrap mb-6">
                             <li 
@@ -64,7 +64,7 @@
                                 :class="{ 'mr-1' : i != getTitle(movie.genre_ids).length -1  }"> 
                                 <NuxtLink 
                                     :to="{query: {type: type , name: title.name.toLowerCase()}, path:`/genres/${title.id}`}"
-                                    class="text-base text-xs">{{ title.name }}</NuxtLink>
+                                    class="text-sm lg:text-base">{{ title.name }}</NuxtLink>
                             </li>
                         </ul>
                         
@@ -76,7 +76,7 @@
                             </span>
                         </div>
 
-                        <p class="text-xs text-lg leading-normal mb-6">{{ movie.overview.substring(0,200)+".." }}</p>
+                        <p class="text-sm lg:text-base leading-normal mb-6">{{ movie.overview.substring(0,200)+".." }}</p>
                         <a :href="`movie/${movie.id}`" class="inline-block py-1 px-6 border-b-4 border-blue-800">
                             <span>PLUS</span>
                         </a>

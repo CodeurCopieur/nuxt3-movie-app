@@ -57,7 +57,6 @@
           <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'small')" media="(max-width: 768px)">
           <img 
             v-if="type === 'movie' || type ==='tv' || type === 'person'"
-            class="h-auto"
             loading="lazy"
             :alt="`${data.original_title || data.original_name || data.name}`" />
 
@@ -78,7 +77,7 @@
         </div>
         <div class="postImage-pst__info h-full px-4">
           <div>
-            <h4 class="text-xs text-2xl sm:text-3xl font-bold mb-2">{{ data.title || data.original_name || data.name }}</h4>
+            <h4 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5">{{ data.title || data.original_name || data.name }}</h4>
             <p class="text-xs mb-6" v-if="data.release_date || data.first_air_date"> {{ useMoviesApi().getDate(data.release_date || data.first_air_date) }}</p>
 
             <ul class="flex flex-wrap mb-6" v-if="type === 'movie' || type === 'tv'">
@@ -88,11 +87,11 @@
                     :class="{ 'mr-1' : i != data.genres.length -1  }"> 
                     <NuxtLink 
                         :to="{query: {type: type , name: title.name.toLowerCase().replace(/%/g, ''), page: 1}, path:`/genres/${title.id}`}"
-                        class="text-base">{{ title.name }}</NuxtLink>
+                        class="text-sm lg:text-base">{{ title.name }}</NuxtLink>
                 </li>
             </ul>
             <ul v-else class="flex flex-wrap mb-6">
-              <li class="border-b-4 border-blue-800 px-1 py-0"> {{ data.known_for_department }}</li>
+              <li class="border-b-4 border-blue-800 px-1 py-0 text-xs"> {{ data.known_for_department }}</li>
             </ul>
 
             <div v-if="type === 'movie' && data.vote_average > 1 || type ==='tv' && data.vote_average > 1" 
@@ -140,11 +139,11 @@
                 </dd>
               </div>
             </div>
-            <p class="mt-8 text-sm text-base mb-6">{{ data.overview || data.biography}}</p>
+            <p class="text-sm lg:text-base leading-normal mb-6">{{ data.overview || data.biography}}</p>
 
             <button 
               v-if="(type === 'movie' || type === 'tv') && (state.videos)"
-              @click="state.isOpen = !state.isOpen" class="inline-block py-1 px-6 border-b-4 border-blue-800 mb-8 cursor-pointer">
+              @click="state.isOpen = !state.isOpen" class="inline-block py-1 px-6 border-b-4 border-blue-800 mb-8 cursor-pointer mx-auto">
               <span>Regarder</span>
             </button>
 
