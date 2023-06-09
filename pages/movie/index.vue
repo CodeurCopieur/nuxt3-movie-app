@@ -1,6 +1,6 @@
 <script setup>
   useHead({
-    title: 'Movie | Nuxt 3 and Themoviedb',
+    title: 'Movies | Nuxt 3 and Themoviedb',
     meta: [
       {name: 'description', content: 'Les films'}
     ]
