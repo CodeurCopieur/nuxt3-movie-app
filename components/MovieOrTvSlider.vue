@@ -98,28 +98,34 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
     :preload-images="true"
     :loop="thumbnailSwiperParams.loop"
     :breakpoints="thumbnailSwiperParams.breakpoints"
-    :pagination="thumbnailSwiperParams.pagination">
+    :pagination="thumbnailSwiperParams.pagination"
+    role="list">
     <SwiperSlide v-for="(item, i) in state.res" :key="i" 
       class="h-full shadow-xl mr-0 sm:mr-4 border border-gray-700 hover:bg-gray-900 shadow-custom"
-    :class="{'overflow-hidden': type === 'movie' || type === 'tv' }">
+      :class="{'overflow-hidden': type === 'movie' || type === 'tv' }"
+      role="listitem">
       <NuxtLink 
         :to="type === 'movie' || type === 'tv' || type === 'person' ? { path:`/${type}/${item.id}`} : {}" 
-        class="relative">
+        class="relative"
+        role="link">
         <div class="relative" style="padding-top: 130%;">
           <picture>
             <img 
               class="absolute inset-0 object-cover w-full h-full"
               :src="`https://image.tmdb.org/t/p/w300${item.poster_path || item.profile_path}`" 
               :alt="`${item.original_title || item.original_name || item.name}`"
-              loading="lazy">
+              loading="lazy"
+              role="img">
           </picture>
           <div 
             v-if="type === 'movie' && item.vote_average > 1 || type ==='tv' && item.vote_average > 1"
             class="precent-bar mt-8" >
                 <span class="precent-per inline-block" 
                   :class="useMoviesApi().getColor(`${item.vote_average}`)"
-                  :style="{'width':useMoviesApi().percent(`${parseInt(item.vote_average)}`)+'%'}">
-                  <span class="percent-tooltip inline-block" :class="useMoviesApi().getColor(`${item.vote_average}`)">{{ useMoviesApi().percent(`${item.vote_average}`) }}</span>
+                  :style="{'width':useMoviesApi().percent(`${parseInt(item.vote_average)}`)+'%'}"
+                  :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${item.vote_average}`)}+%' `">
+                  <span class="percent-tooltip inline-block" :class="useMoviesApi().getColor(`${item.vote_average}`)"
+                  :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${item.vote_average}`)}+%' `">{{ useMoviesApi().percent(`${item.vote_average}`) }}</span>
                 </span>
           </div>
           <div v-else-if="type === 'movie' && item.vote_average === 0 || type ==='tv' && item.vote_average === 0"  
@@ -144,17 +150,20 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
       class="swiperList"
       ref="thumbnailSwiperParams2"
       :modules="[SwiperPagination]"
-      :pagination="thumbnailSwiperParams2.pagination">
+      :pagination="thumbnailSwiperParams2.pagination"
+      role="list">
       <SwiperSlide 
         v-for="(item, i) in state.res" :key="i" 
         class="shadow-xl shadow-custom"
-        :class="{'overflow-hidden': type === 'videos' }">
+        :class="{'overflow-hidden': type === 'videos' }"
+        role="listitem">
           <div class="videos-trailer">
             <iframe class="iframe-cont" 
               width="560" 
               height="315" 
               :src="`https://www.youtube.com/embed/${item.key}`" 
-              :title="`${item.name}`" frameborder="0" 
+              :title="`${item.name}`" frameborder="0"
+              role="presentation" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
           </div>
       </SwiperSlide>

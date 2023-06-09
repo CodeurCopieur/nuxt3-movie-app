@@ -55,7 +55,7 @@
             <div class="absolute z-10 h-full">
                 <div class="w-full md:min-w-3xl md:max-w-3xl  xl:pl-40 p-0 h-full flex items-center md:mr-auto md:ml-0 mx-auto">
                     <div class="px-8">
-                        <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5">{{ movie.original_title}}</h3>
+                        <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5" :aria-label="movie.original_title">{{ movie.original_title}}</h3>
                         
                         <ul class="flex flex-wrap mb-6">
                             <li 
@@ -64,20 +64,26 @@
                                 :class="{ 'mr-1' : i != getTitle(movie.genre_ids).length -1  }"> 
                                 <NuxtLink 
                                     :to="{query: {type: type , name: title.name.toLowerCase()}, path:`/genres/${title.id}`}"
-                                    class="text-sm lg:text-base">{{ title.name }}</NuxtLink>
+                                    class="text-sm lg:text-base"
+                                    role="link">{{ title.name }}</NuxtLink>
                             </li>
                         </ul>
                         
                         <div class="precent-bar mb-6">
                             <span class="precent-per inline-block"
                                 :class="useMoviesApi().getColor(`${movie.vote_average}`)" 
-                                :style="{'width':useMoviesApi().percent(`${movie.vote_average}`)+'%'}">
-                                <span class="percent-tooltip inline-block" :class="useMoviesApi().getColor(`${movie.vote_average}`)">{{ useMoviesApi().percent(`${movie.vote_average}`) }}</span>
+                                :style="{'width':useMoviesApi().percent(`${movie.vote_average}`)+'%'}"
+                                :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${movie.vote_average}`)}+%' `">
+                                <span class="percent-tooltip inline-block" 
+                                    :class="useMoviesApi().getColor(`${movie.vote_average}`)"
+                                    :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${movie.vote_average}`)}+%' `">{{ useMoviesApi().percent(`${movie.vote_average}`) }}</span>
                             </span>
                         </div>
 
-                        <p class="text-sm lg:text-base leading-normal mb-6">{{ movie.overview.substring(0,200)+".." }}</p>
-                        <a :href="`movie/${movie.id}`" class="inline-block py-1 px-6 border-b-4 border-blue-800">
+                        <p class="text-sm lg:text-base leading-normal mb-6" :aria-label="movie.overview.substring(0,200)+'...'">{{ movie.overview.substring(0,200)+".." }}</p>
+                        <a 
+                            :href="`movie/${movie.id}`" class="inline-block py-1 px-6 border-b-4 border-blue-800"
+                            aria-label="En savoir plus sur le film">
                             <span>PLUS</span>
                         </a>
                     </div>
