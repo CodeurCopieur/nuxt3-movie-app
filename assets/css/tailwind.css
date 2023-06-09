@@ -25,6 +25,15 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
   z-index: 2000;
 }
 
+header ul {
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.router-link-active.router-link-exact-active svg {
+  color: #1e40af;
+}
+
 .loading span {
   display: block;
   width: 40px;
@@ -72,10 +81,13 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: top;
   transition: all .5s ease-in-out;
+}
+
+.component-app__wrap-slideHero img{
+    height: 100%;
 }
 
 .component-app__wrap-slideHero p {
@@ -314,6 +326,10 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
     object-position: center;
   }
 
+  .component-app__wrap-movieCard img {
+    height: 100%;
+  }
+
   .component-app__aspect-ratio {
     padding-top: 53%;
   }
@@ -323,7 +339,7 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
   } 
 
   .component-app__wrap-movieCard {
-    padding-top: 160%;
+    padding-top: 150%;
   }
 
   .component-app__wrap-movieCard-info {
