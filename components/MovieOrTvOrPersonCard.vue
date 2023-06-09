@@ -69,8 +69,8 @@
 
             </div>
         </div>
-        <span class="before:block before:absolute before:-inset-1 before:-skew-x-2 before:bg-[#111827] relative inline-block before:border before:border-gray-700 ">
-          <span class="relative text-white">{{ item.original_title || item.original_name || item.name }}</span>
+        <span class="before:block before:absolute before:-inset-1 before:-skew-x-2 relative inline-block before:border before:border-gray-700 ">
+          <span class="relative text-white text-xs">{{ item.original_title || item.original_name || item.name }}</span>
         </span>
       </NuxtLink>
   </transition-group>

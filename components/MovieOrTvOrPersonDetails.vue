@@ -44,7 +44,8 @@
 <template>
   
   <Head>
-    <Title>{{ data.title || data.original_name || data.name }} | Nuxt 3 and Themoviedb</Title>
+    <Title>{{ data.title || data.original_name || data.name }} | {{ type === 'person' ? 'Acting' : type }} | Nuxt 3 and Themoviedb</Title>
+    <Meta name="description" :content="data.overview || data.biography" />
   </Head>
   <section class="pb-10 sm:pb-16">
     <div class="postImage w-full rounded mb-10 relative">
@@ -63,14 +64,13 @@
         </picture>
       </div>
       <div class="container max-w-7xl mx-auto postImage-pst mb-12">
-        <div class="postImage-cover relative">
+        <div class="postImage-cover relative overflow-hidden">
           <div class="postImage-cover__aspect-ratio"></div>
             <picture>
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)">
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)">
               <img 
                 v-if="type === 'movie' || type ==='tv' || type === 'person'"
-                class="h-auto"
                 :alt="`${data.original_title || data.original_name || data.name}`">
 
             </picture>
