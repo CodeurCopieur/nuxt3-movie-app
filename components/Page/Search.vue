@@ -17,6 +17,7 @@ const handleOptionChange = (event) => {
   state.picked = event.target.value
   state.search = ''
   state.allItems = []
+  state.visible = false
 };
 
 const getClassForOption = (optionValue) => {
@@ -46,7 +47,7 @@ async function handleBlur(event) {
 
 <template>
   <section class="">
-    <ul class="container max-w-7xl max-w-2xl mx-auto px-4 py-8 flex justify-center wrapper_li">
+    <ul class="container max-w-2xl mx-auto px-4 py-8 flex justify-center wrapper_li">
       <li class="flex-auto text-center" 
           v-for="(option, index) in state.options" 
           :key="index">
