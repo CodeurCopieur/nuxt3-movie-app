@@ -86,7 +86,7 @@
                     class="border-b-4 border-blue-800 px-1 py-0"
                     :class="{ 'mr-1' : i != data.genres.length -1  }"> 
                     <NuxtLink 
-                        :to="{query: {type: type , name: title.name.toLowerCase().replace(/%/g, ''), page: 1}, path:`/genres/${title.id}`}"
+                        :to="{query: {type: type , name: title.name.toLowerCase().replace(/%/g, '')}, path:`/genres/${title.id}`}"
                         class="text-sm lg:text-base">{{ title.name }}</NuxtLink>
                 </li>
             </ul>
