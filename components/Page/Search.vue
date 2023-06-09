@@ -9,7 +9,8 @@
       { label: 'Tv', value: 'tv' }
     ],
     allItems: [],
-    page: 1
+    page: 1,
+    visible: false
   });
 
 const handleOptionChange = (event) => {
@@ -30,7 +31,15 @@ async function handleBlur(event) {
   
   if (!state.search) {
     state.allItems = []
+    state.visible = false
     return
+  }
+
+  if (state.allItems.length === 0) {
+    // Afficher un message approprié ici
+    state.visible = true
+  } else {
+    state.visible = false
   }
 }
 </script>
@@ -63,6 +72,9 @@ async function handleBlur(event) {
 
       <MovieOrTvOrPersonCard :items="state.allItems" :type="state.picked" />
 
+    </div>
+    <div v-if="state.visible" class="container max-w-xs mx-auto bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative mt-4 text-center" role="alert">
+      <p>Aucun résultat trouvé.</p>
     </div>
   </section>
 </template>
