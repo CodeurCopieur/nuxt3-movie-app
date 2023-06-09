@@ -25,7 +25,7 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
   z-index: 2000;
 }
 
-header ul {
+.header ul {
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
