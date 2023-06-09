@@ -19,9 +19,6 @@
     state.infos = await useMoviesApi().credits(`${type}`, `${id}`)
     state.recommendations = await useMoviesApi().recommendations(`${type}`, `${id}`)
     state.videos = await  useMoviesApi().videos(`${type}`, `${id}`)
-
-    console.log(state.videos );
-
   } else if (type === 'person') {
     state.personCreditsMovies = await useMoviesApi().personCredits('movie', `${id}`)
     state.personCreditsTv = await useMoviesApi().personCredits('tv', `${id}`)
@@ -41,10 +38,14 @@
 
     return `${baseUrl}${imageSize[size]}${optimizedPath}`;
   };
-  
+
 
 </script>
 <template>
+  
+  <Head>
+    <Title>{{ data.title || data.original_name || data.name }} | Nuxt 3 and Themoviedb</Title>
+  </Head>
   <section class="pb-10 sm:pb-16">
     <div class="postImage w-full rounded mb-10 relative">
       <div 
