@@ -94,21 +94,14 @@
               <li class="border-b-4 border-blue-800 px-1 py-0 text-xs"> {{ data.known_for_department }}</li>
             </ul>
 
-            <div v-if="type === 'movie' && data.vote_average > 1 || type ==='tv' && data.vote_average > 1" 
-              class="precent-bar mb-6">
-              <span class="precent-per inline-block" 
-                :class="useMoviesApi().getColor(`${data.vote_average}`)"
-                :style="{'width':useMoviesApi().percent(`${data.vote_average}`)+'%'}">
-                <span class="percent-tooltip inline-block" 
-                :class="useMoviesApi().getColor(`${data.vote_average}`)">{{ useMoviesApi().percent(`${data.vote_average}`) }}</span>
-              </span>
-            </div>
-
-            <div v-else-if="type === 'movie' && data.vote_average === 0 || type ==='tv' && data.vote_average === 0" 
-            class="precent-bar mt-8">
-              <span class="precent-per nr inline-block bg-red-600" style="width:0%;">
-                  <span class="percent-tooltip inline-block bg-red-600 nr" style="right: -25px; top: -12px;">NR</span>
-              </span>
+            <div class="precent-bar mb-6" v-if="type === 'movie' || type === 'tv'">
+                <span class="precent-per flex">
+                    <span class="stars mr-3">
+                        <span v-for="star in 5" :key="star" 
+                            :class="useMoviesApi().getStarClass(star, data.vote_average)"
+                            class="text-xl">{{ useMoviesApi().getStarSymbol(star, data.vote_average) }}</span>
+                    </span>
+                </span>
             </div>
           <!-- Person -->
             <div class="text-sm text-base mb-6 flex items-center" v-if="type === 'person'">

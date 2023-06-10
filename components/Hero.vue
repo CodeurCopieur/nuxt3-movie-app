@@ -39,7 +39,6 @@
 
     return `${baseUrl}${imageSize[size]}${optimizedPath}`;
   };
-  
 </script>
 <template>
     <div class="component-app__wrap-sliderHero relative">
@@ -70,13 +69,12 @@
                         </ul>
                         
                         <div class="precent-bar mb-6">
-                            <span class="precent-per inline-block"
-                                :class="useMoviesApi().getColor(`${movie.vote_average}`)" 
-                                :style="{'width':useMoviesApi().percent(`${movie.vote_average}`)+'%'}"
-                                :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${movie.vote_average}`)}+%' `">
-                                <span class="percent-tooltip inline-block" 
-                                    :class="useMoviesApi().getColor(`${movie.vote_average}`)"
-                                    :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${movie.vote_average}`)}+%' `">{{ useMoviesApi().percent(`${movie.vote_average}`) }}</span>
+                            <span class="precent-per flex">
+                                <span class="stars mr-3">
+                                    <span v-for="star in 5" :key="star" 
+                                        :class="useMoviesApi().getStarClass(star, movie.vote_average)"
+                                        class="text-xl">{{ useMoviesApi().getStarSymbol(star, movie.vote_average) }}</span>
+                                </span>
                             </span>
                         </div>
 
@@ -109,7 +107,7 @@
 <style>
 
 
-.bg-gradient-cover {
+/* .bg-gradient-cover {
 	background-color: transparent;
     background-image: linear-gradient(transparent,rgba(0,0,0,0.92));
 }
@@ -141,5 +139,14 @@
 }
 .swiper-slide-visible {
     opacity: .5;
+} */
+
+
+.stars {
+  color: #FFD700; /* Couleur des étoiles jaunes */
+}
+
+.star-empty {
+  color: #CCC; /* Couleur de l'étoile sans couleur */
 }
 </style>

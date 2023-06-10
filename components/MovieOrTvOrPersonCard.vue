@@ -45,33 +45,27 @@
 
             <div class="component-app__wrap-movieCard-info">
 
-              <span class="mt-8 text-xs text-lg inline-block">{{ useMoviesApi().showYear(`${item.release_date}`) || useMoviesApi().showYear(`${item.first_air_date}`) || item.known_for_department }}</span><br>
+              <span 
+                class="mt-8 text-xs text-lg inline-block"
+                :class="{'border-b-4 border-blue-800' : type === 'person'}">{{ useMoviesApi().showYear(`${item.release_date}`) || useMoviesApi().showYear(`${item.first_air_date}`) || item.known_for_department }}</span><br>
 
-              <div 
-                 v-if="type !== 'person' && item.vote_average >= 1 || type !== 'person' && item.vote_average >= 1" 
-                 class="precent-bar mt-6">
-                <span 
-                  :class="useMoviesApi().getColor(`${item.vote_average}`)"
-                  :style="{'width':useMoviesApi().percent(`${item.vote_average}`)+'%'}"
-                   class="precent-per inline-block">
-                  <span
-                    :class="useMoviesApi().getColor(`${item.vote_average}`)" 
-                    class="percent-tooltip inline-block">{{ useMoviesApi().percent(`${item.vote_average}`) }}</span>
+              <div class="precent-bar" v-if="type === 'movie' || type === 'tv'">
+                <span class="precent-per flex">
+                    <span class="stars mr-3">
+                        <span v-for="star in 5" :key="star" 
+                            :class="useMoviesApi().getStarClass(star, item.vote_average)"
+                            class="text-base">{{ useMoviesApi().getStarSymbol(star, item.vote_average) }}</span>
+                    </span>
                 </span>
               </div>
-              <div 
-                v-else-if="type !== 'person' && item.vote_average === 0 || type !== 'person' && item.vote_average === 0"
-                class="precent-bar mt-6">
-                  <span class="precent-per nr inline-block bg-red-600" style="width:0%;">
-                    <span class="percent-tooltip inline-block bg-red-600 nr" style="right: -25px; top: -12px;">NR</span>
-                    </span>
-              </div>
+
+              <span class="text-xs text-lg inline-block">{{ item.original_title || item.original_name || item.name }}</span><br>
 
             </div>
         </div>
-        <span class="before:block before:absolute before:-inset-1 before:-skew-x-2 relative inline-block before:border before:border-gray-700 ">
+        <!-- <span class="before:block before:absolute before:-inset-1 before:-skew-x-2 relative inline-block before:border before:border-gray-700 ">
           <span class="relative text-white text-xs">{{ item.original_title || item.original_name || item.name }}</span>
-        </span>
+        </span> -->
       </NuxtLink>
   </transition-group>
 </template>

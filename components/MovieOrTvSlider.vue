@@ -117,23 +117,17 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
               loading="lazy"
               role="img">
           </picture>
-          <div 
-            v-if="type === 'movie' && item.vote_average > 1 || type ==='tv' && item.vote_average > 1"
-            class="precent-bar mt-8" >
-                <span class="precent-per inline-block" 
-                  :class="useMoviesApi().getColor(`${item.vote_average}`)"
-                  :style="{'width':useMoviesApi().percent(`${parseInt(item.vote_average)}`)+'%'}"
-                  :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${item.vote_average}`)}+%' `">
-                  <span class="percent-tooltip inline-block" :class="useMoviesApi().getColor(`${item.vote_average}`)"
-                  :aria-label="`Pourcentage de vote : ${useMoviesApi().percent(`${item.vote_average}`)}+%' `">{{ useMoviesApi().percent(`${item.vote_average}`) }}</span>
-                </span>
-          </div>
-          <div v-else-if="type === 'movie' && item.vote_average === 0 || type ==='tv' && item.vote_average === 0"  
-            class="precent-bar mt-6">
-              <span class="precent-per nr inline-block bg-red-600" style="width:0%;">
-                <span class="percent-tooltip inline-block bg-red-600 nr" style="right: -25px; top: -12px;">NR</span>
+
+          <div class="precent-bar" v-if="type === 'movie' || type === 'tv'">
+              <span class="precent-per flex justify-center">
+                  <span class="stars mr-3">
+                      <span v-for="star in 5" :key="star" 
+                          :class="useMoviesApi().getStarClass(star, item.vote_average)"
+                          class="text-base">{{ useMoviesApi().getStarSymbol(star, item.vote_average) }}</span>
+                  </span>
               </span>
-            </div>
+          </div>
+
         </div>
         <span class="text-center block">
           <span class="text-white text-xs">{{ item.original_name || item.original_title }}</span>
