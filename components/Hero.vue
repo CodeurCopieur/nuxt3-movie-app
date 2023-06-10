@@ -115,11 +115,6 @@
   transition: opacity 0.75s ease, transform 0.75s ease;
 }
 
-.active-slide .slide-content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .swiper-slide-active .slide-content {
   opacity: 1;
   transform: translateY(0);
