@@ -19,6 +19,8 @@
       },
       pagination:{ clickable: true, dynamicBullets: true },
     };
+
+    const activeSlideIndex = ref(0);
     
   const getTitle = (arrayId) => {
     const filteredObjects = computed(() => genres.filter(obj => arrayId.includes(obj.id)));
@@ -49,9 +51,10 @@
             :autoplay="gallerySwiperParams.autoplay"
             :preload-images="true"
             :loop="gallerySwiperParams.loop"
-            :slide-to-clicked-slide="gallerySwiperParams.slideToClickedSlide" class="h-max w-full component-app__wrap-slider">
-        <SwiperSlide v-for="(movie, i) in movies" :key="i" class="component-app__wrap-slideHero relative">
-            <div class="absolute z-10 h-full">
+            :slide-to-clicked-slide="gallerySwiperParams.slideToClickedSlide"
+            @slideChange="activeSlideIndex = $event.activeIndex" class="h-max w-full component-app__wrap-slider">
+        <SwiperSlide v-for="(movie, i) in movies" :class="{ 'active-slide': i === activeSlideIndex }" :key="i" class="component-app__wrap-slideHero relative">
+            <div class="absolute z-10 h-full slide-content">
                 <div class="w-full md:min-w-3xl md:max-w-3xl  xl:pl-40 p-0 h-full flex items-center md:mr-auto md:ml-0 mx-auto">
                     <div class="px-8">
                         <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5" :aria-label="movie.original_title">{{ movie.original_title}}</h3>
@@ -106,40 +109,21 @@
 
 <style>
 
+.slide-content {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
 
-/* .bg-gradient-cover {
-	background-color: transparent;
-    background-image: linear-gradient(transparent,rgba(0,0,0,0.92));
+.active-slide .slide-content {
+  opacity: 1;
+  transform: translateY(0);
 }
-.max-h-98 {
-    max-height: 24.3rem;
+
+.swiper-slide-active .slide-content {
+  opacity: 1;
+  transform: translateY(0);
 }
-.box-one > article:nth-child(1) { 
-	padding-top: 0;
-	padding-bottom: 0.125rem;
-	padding-right: 0.125rem;
-}
-.box-one > article:nth-child(2) {
-	padding-top: 0;
-	padding-bottom: 0.125rem;
-	padding-left: 0.125rem;
-}
-.box-one > article:nth-child(3) {
-	padding-top: 0.125rem;
-	padding-bottom: 0.125rem;
-	padding-right: 0.125rem;
-}
-.box-one > article:nth-child(4) {
-	padding-top: 0.125rem;
-	padding-bottom: 0.125rem;
-	padding-left: 0.125rem;
-}
-.swiper-slide-visible.swiper-slide-active {
-    opacity: 1;
-}
-.swiper-slide-visible {
-    opacity: .5;
-} */
 
 
 .stars {
