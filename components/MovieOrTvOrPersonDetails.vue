@@ -2,6 +2,10 @@
   const { type } = defineProps(['type']);
   const {id} = useRoute().params;
   const moviesApi = useMoviesApi();
+
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
   
   const data = await moviesApi.getDetails(`${type}`, `${id}`);
 
@@ -39,6 +43,35 @@
     return `${baseUrl}${imageSize[size]}${optimizedPath}`;
   };
 
+  const animateData = () => {
+    setTimeout(() => {
+      const infoElement = Array.from(document.querySelectorAll('.fade-in'));
+      if (infoElement && type === 'movie' || type ==='tv') {
+
+        infoElement.forEach( child => {
+          child.classList.add('show');
+        })
+
+        gsap.utils.toArray('.fade-in > *').forEach((child) => {
+          gsap.from(child, {
+            opacity: 0,
+            duration: 1,
+            scrollTrigger: {
+              trigger: child,
+              start: 'top bottom-=20%',
+            },
+          });
+        });
+      }
+    }, 100);
+  }
+
+  onMounted(() => {
+    ScrollTrigger.matchMedia({
+      "(min-width: 992px)": function() {
+        animateData()
+      }})
+  });
 
 </script>
 <template>
@@ -64,7 +97,8 @@
         </picture>
       </div>
       <div class="container max-w-7xl mx-auto postImage-pst mb-12">
-        <div class="postImage-cover relative overflow-hidden">
+        <div
+          class="postImage-cover relative overflow-hidden">
           <div class="postImage-cover__aspect-ratio"></div>
             <picture>
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)">
@@ -76,7 +110,8 @@
             </picture>
         </div>
         <div class="postImage-pst__info h-full px-4">
-          <div>
+          <div 
+            :class="{'fade-in' : type === 'tv' || type === 'movie'}">
             <h4 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5">{{ data.title || data.original_name || data.name }}</h4>
             <p class="text-xs mb-6" v-if="data.release_date || data.first_air_date"> {{ useMoviesApi().getDate(data.release_date || data.first_air_date) }}</p>
 
@@ -132,6 +167,7 @@
                 </dd>
               </div>
             </div>
+          <!-- Person -->
             <p class="text-sm lg:text-base leading-normal mb-6">{{ data.overview || data.biography}}</p>
 
             <button 
@@ -187,3 +223,21 @@
     <!-- Post Content -->
   </section>
 </template> 
+
+<style scoped>
+
+
+  @media (min-width: 900px) {
+    .fade-in {
+      opacity: .25;
+      visibility: hidden;
+      transition: opacity 0.3s;
+    }
+
+    .fade-in.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+</style>
