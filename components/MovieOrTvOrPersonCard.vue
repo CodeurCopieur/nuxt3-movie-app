@@ -1,6 +1,6 @@
 <script setup>
   const { items, type } = defineProps(['items', 'type']);
-    import { gsap } from 'gsap';
+  import { gsap } from 'gsap';
   const beforeEnter = (el) => {
 		el.style.opacity = 0
 		el.style.transform = 'translateY(60px)'
