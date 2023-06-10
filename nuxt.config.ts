@@ -19,7 +19,6 @@ export default defineNuxtConfig({
       ],
       bodyAttrs: {    class: 'min-h-screen'  },
     },
-    // pageTransition: { name: 'page', mode: 'out-in' },  
   },  
   runtimeConfig: {
     public: {
