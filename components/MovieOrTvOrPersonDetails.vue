@@ -63,7 +63,7 @@
           });
         });
       }
-    }, 100);
+    }, 300);
   }
 
   onMounted(() => {
@@ -90,7 +90,7 @@
           <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')" media="(min-width: 768px)">
           <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'small')" media="(max-width: 768px)">
           <img 
-            v-if="type === 'movie' || type ==='tv' || type === 'person'"
+            :class="{'fade-in' : type === 'tv' || type === 'movie'}"
             loading="lazy"
             :alt="`${data.original_title || data.original_name || data.name}`" />
 
@@ -103,8 +103,8 @@
             <picture>
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)">
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)">
-              <img 
-                v-if="type === 'movie' || type ==='tv' || type === 'person'"
+              <img
+                :class="{'fade-in' : type === 'tv' || type === 'movie'}"
                 :alt="`${data.original_title || data.original_name || data.name}`">
 
             </picture>
