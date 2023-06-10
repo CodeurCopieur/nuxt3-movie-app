@@ -155,6 +155,24 @@ export default () => {
       return  data
     }
 
+    const getStarClass = (starIndex, voteAverage) => {
+      const filledStarsCount = Math.floor(voteAverage / 2); // Calculer le nombre d'étoiles jaunes remplies
+      if (starIndex <= filledStarsCount) {
+        return ''; // Pas de classe pour une étoile jaune
+      } else {
+        return 'star-empty'; // Renvoyer la classe pour une étoile sans couleur
+      }
+    }
+    
+    const getStarSymbol = (starIndex, voteAverage) => {
+      const filledStarsCount = Math.floor(voteAverage / 2); // Calculer le nombre d'étoiles jaunes remplies
+      if (starIndex <= filledStarsCount) {
+        return '★'; // Caractère Unicode pour une étoile jaune remplie
+      } else {
+        return '☆'; // Caractère Unicode pour une étoile sans couleur
+      }
+    };
+
       return {
         showDate,
         showYear,
@@ -170,7 +188,9 @@ export default () => {
         credits,
         recommendations,
         personCredits,
-        videos
+        videos,
+        getStarClass,
+        getStarSymbol
       };
 
   // Series
