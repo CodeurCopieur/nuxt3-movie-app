@@ -57,7 +57,7 @@
             <div class="absolute z-10 h-full slide-content">
                 <div class="w-full md:min-w-3xl md:max-w-3xl  xl:pl-40 p-0 h-full flex items-center md:mr-auto md:ml-0 mx-auto">
                     <div class="px-8">
-                        <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5" :aria-label="movie.original_title">{{ movie.original_title}}</h3>
+                        <h3 class="text-lg lg:text-4xl font-extrabold mb-3 lg:mb-5" :aria-label="movie.original_title">{{ movie.title || movie.name}}</h3>
                         
                         <ul class="flex flex-wrap mb-6">
                             <li 
