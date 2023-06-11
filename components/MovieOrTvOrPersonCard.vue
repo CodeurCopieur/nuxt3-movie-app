@@ -26,11 +26,11 @@
             <picture>
               <source
                 v-if="type === 'movie' || type === 'tv'"
-                :srcset="`https://image.tmdb.org/t/p/w500${item.poster_path}`"
+                :srcset="`https://image.tmdb.org/t/p/w500${item.poster_path} 500w`"
                 type="image/jpeg">
               <source
                 v-else
-                :srcset="`https://image.tmdb.org/t/p/w500${item.profile_path}`"
+                :srcset="`https://image.tmdb.org/t/p/w500${item.profile_path} 500w`"
                 type="image/jpeg">
               <img 
                 v-if="type === 'movie' || type === 'tv'" 
