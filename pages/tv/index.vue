@@ -5,12 +5,20 @@
       {name: 'description', content: 'Les series & émissions de télévision'}
     ]
   });
+
+  
+    const timeWindow = 'week'; // Remplacez 'week' par la fenêtre de temps souhaitée
+  const state = {
+    allTv: [],
+    timeWindow: 'week'
+  }
+  state.allTv = await useMoviesApi().getMovies(`trending/tv/${state.timeWindow}`);
 </script>
 
 <template>
- <PageHeader title="TV"></PageHeader>
- <section>
+  <Hero :movies="state.allTv" type="movie" />
+  <section>
       <MovieOrTvCard :type="`tv`"/>
-    </section>
+  </section>
 </template>
 
