@@ -102,8 +102,8 @@
           class="postImage-cover relative overflow-hidden">
           <div class="postImage-cover__aspect-ratio"></div>
             <picture>
-              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)">
-              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)">
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'large')" media="(min-width: 768px)" sizes="100vw">
+              <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)" sizes="100vw">
               <img
                 :class="{'fade-in' : type === 'tv' || type === 'movie'}"
                 :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"
