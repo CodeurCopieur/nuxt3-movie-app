@@ -129,8 +129,8 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
           </div>
 
         </div>
-        <span class="text-center block">
-          <span class="text-white text-xs">{{ item.original_name || item.original_title }}</span>
+        <span class="text-center block" style="line-height: 0;">
+          <span class="text-white text-xs font-bold">{{ item.name || item.title }}</span>
         </span>
       </NuxtLink>
     </SwiperSlide>
