@@ -94,10 +94,12 @@
             <div class="component-app__aspect-ratio"></div>
             <div class="component-app__linear-black"></div>
             <picture>
-                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path || movie.backdrop_path, 'original')" media="(min-width: 768px)">
-                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path || movie.backdrop_path, 'medium')" media="(max-width: 768px)">
+                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path, 'original')" media="(min-width: 768px)">
+                <source :srcset="generateOptimizedImageUrl(movie.backdrop_path, 'medium')" media="(min-width: 480px) and (max-width: 768px)">
+                <source :srcset="generateOptimizedImageUrl(movie.poster_path, 'small')" media="(max-width: 480px)">
                 <img 
                     class="swiper-lazy" 
+                    :src="generateOptimizedImageUrl(movie.poster_path, 'small')"
                     :alt="movie.original_title"
                     loading="lazy">
             </picture>
