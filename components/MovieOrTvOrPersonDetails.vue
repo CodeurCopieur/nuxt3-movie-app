@@ -83,14 +83,15 @@
   <section class="pb-10 sm:pb-16">
     <div class="postImage w-full rounded mb-10 relative">
       <div 
-      class="postImage-bck relative overflow-hidden"
-      :class="{'h-[350px] sm:h-[550px]': type === 'person'}">
+      class="postImage-bck relative overflow-hidden">
         <div class="postImage__aspect-ratio"></div>
         <picture>
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'large')" media="(min-width: 768px)">
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'small')" media="(max-width: 768px)">
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'original')" media="(min-width: 768px)">
+          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'medium')" media="(min-width: 480px) and (max-width: 768px)">
+          <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path,  'small')" media="(max-width: 480px)">
           <img 
             :class="{'fade-in' : type === 'tv' || type === 'movie'}"
+            :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"
             loading="lazy"
             :alt="`${data.original_title || data.original_name || data.name}`" />
 
@@ -105,6 +106,7 @@
               <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"  media="(max-width: 768px)">
               <img
                 :class="{'fade-in' : type === 'tv' || type === 'movie'}"
+                :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"
                 :alt="`${data.original_title || data.original_name || data.name}`">
 
             </picture>
@@ -140,7 +142,7 @@
             </div>
           <!-- Person -->
             <div class="text-sm text-base mb-6 flex items-center" v-if="type === 'person'">
-              <div class="flex items-center pr-2" v-if="data.birthday">
+              <div class="flex flex-wrap items-center pr-2" v-if="data.birthday">
                 <dt>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-slate-400 dark:text-slate-500" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -150,7 +152,7 @@
                   </svg>
                 </dt>
                 <dd>
-                  <span>{{ data.birthday }}</span> 
+                  <span>{{ useMoviesApi().getDate(data.birthday) }}</span> 
                 </dd>
               </div>
 
