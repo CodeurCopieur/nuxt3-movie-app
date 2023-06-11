@@ -16,7 +16,7 @@
 </script>
 
 <template>
-  <Hero :movies="state.allTv" type="movie" />
+  <Hero :movies="state.allTv" type="tv" />
   <section>
       <MovieOrTvCard :type="`tv`"/>
   </section>
