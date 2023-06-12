@@ -86,14 +86,24 @@
       class="postImage-bck relative overflow-hidden">
         <div class="postImage__aspect-ratio"></div>
         <picture>
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'original')" media="(min-width: 768px)">
-          <source :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'medium')" media="(min-width: 480px) and (max-width: 768px)">
-          <source :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path,  'small')" media="(max-width: 480px)">
+          <source 
+            :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'original')" 
+            media="(min-width: 768px)"
+            sizes="(min-width: 768px) 600px, 100vw">
+          <source 
+            :srcset="generateOptimizedImageUrl(data.backdrop_path || data.profile_path, 'medium')" 
+            media="(min-width: 480px) and (max-width: 768px)"
+            sizes="(min-width: 480px) 400px, 100vw">
+          <source 
+            :srcset="generateOptimizedImageUrl(data.poster_path || data.profile_path,  'small')" 
+            media="(max-width: 480px)"
+            sizes="(max-width: 480px) 300px, 100vw">
           <img 
             :class="{'fade-in' : type === 'tv' || type === 'movie'}"
             :src="generateOptimizedImageUrl(data.poster_path || data.profile_path, 'small')"
             loading="lazy"
-            :alt="`${data.original_title || data.original_name || data.name}`" />
+            :alt="`${data.original_title || data.original_name || data.name}`"
+            sizes="100vw" />
 
         </picture>
       </div>
