@@ -1,5 +1,5 @@
 <script setup>
-  const { type, theme, items } = defineProps(['type', 'theme', 'items']);
+  const { type, theme, items, id } = defineProps(['type', 'theme', 'items', 'id']);
   const state = reactive({
     res: [],
   isVideosLoaded: false,
@@ -11,6 +11,8 @@
     state.res = await useMoviesApi().getMovies(`${type}/${theme}`, 1);
   } else if(type === 'movie' && theme === 'recommendations' || type === 'tv' && theme === 'recommendations') {
     state.res = items
+  } else if(type === 'movie' && theme === 'genre' || type === 'tv' && theme === 'genre') {
+    state.res = await useMoviesApi().getMoviesD(`discover/${type}`, 1, `${id}`);
   } else {
     state.res = items
   }
@@ -101,7 +103,7 @@ loadVideos(); // Appelez la fonction de chargement des vidéos lors de l'initial
     :pagination="thumbnailSwiperParams.pagination"
     role="list">
     <SwiperSlide v-for="(item, i) in state.res" :key="i" 
-      class="h-full shadow-xl mr-0 sm:mr-4 border border-gray-700 hover:bg-gray-900 shadow-custom"
+      class="h-full shadow-xl mr-0 sm:mr-4 hover:bg-gray-900 shadow-custom"
       :class="{'overflow-hidden': type === 'movie' || type === 'tv' }"
       role="listitem">
       <NuxtLink 
