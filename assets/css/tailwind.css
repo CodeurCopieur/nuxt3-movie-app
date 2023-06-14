@@ -368,7 +368,7 @@ background-image: linear-gradient(to top, #111827, rgba(0, 0, 0, 0));
 
   @media (min-width: 0px) and (max-width: 600px) {
     .component-app__aspect-ratio {
-      padding-top: 130%;
+      padding-top: 150%;
     }
   }
 
