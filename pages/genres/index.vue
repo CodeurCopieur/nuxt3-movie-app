@@ -1,5 +1,12 @@
 <script setup>
 
+  useHead({
+    title: 'Movies ou Series by genres | Nuxt 3 and Themoviedb',
+    meta: [
+      {name: 'description', content: 'Les films ou Séries par genres'}
+    ]
+  });
+
 const genresMovie = ref([]);
 const genresTv = ref([]);
 const selectedGenreId = ref(null);
