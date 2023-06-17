@@ -83,7 +83,7 @@
 
                         <p class="text-sm lg:text-base leading-normal mb-6" :aria-label="movie.overview.substring(0,200)+'...'">{{ movie.overview.substring(0,200)+".." }}</p>
                         <a 
-                            :href="`${type}/${movie.id}`" class="inline-block py-1 px-3 md:px-6 border-b-4 border-blue-800"
+                            :href="`${type}/${movie.id}`" class="inline-block py-1 px-3 md:px-6 text-sm lg:text-base border-b-4 border-blue-800"
                             aria-label="En savoir plus sur le film">
                             <span>PLUS</span>
                         </a>
