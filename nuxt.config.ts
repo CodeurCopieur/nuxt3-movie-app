@@ -23,7 +23,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       baseUrl: "https://api.themoviedb.org/3/",
-      currencyKey: process.env.CURRENCY_API_KEY,
+      currencyKey: process.env.CURRENCY_API_KEY || process.env.API_KEY,
     },
     
   },
