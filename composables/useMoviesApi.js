@@ -47,8 +47,6 @@ export default () => {
 
     // Get Top Rated : https://api.themoviedb.org/3/movie/top_rated?api_key={CURRENCY_API_KEY}&page=${page}
 
-
-
     // Movie Discover : https://api.themoviedb.org/3/discover/movie?api_key={CURRENCY_API_KEY}&sort_by=popularity.desc&page=${page}
     const req = async(get, page, option) => {
       if(page) {
