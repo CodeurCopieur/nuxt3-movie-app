@@ -9,7 +9,10 @@
 
 const genresMovie = ref([]);
 const genresTv = ref([]);
-const selectedGenreId = ref(null);
+const selectedGenreId = ref({
+  movie: null,
+  tv: null
+});
 
 const showSliderMovie = ref(null);
 const showSliderTv = ref(null);
@@ -18,7 +21,6 @@ const loadingContent = ref(false);
 const state = ref({
   id: null,
   name: '',
-  link: '',
 })
 
 
@@ -42,11 +44,15 @@ const handleLinkClick = (genreId, genreName, type) => {
   state.value.id = genreId, 
   state.value.name = genreName
 
-  selectedGenreId.value = false;
+  // selectedGenreId.value = false;
   loadingContent.value = true;
 
-  // Mettre à jour avec les nouvelles valeurs
-  selectedGenreId.value = genreId;
+ // Mettre à jour avec les nouvelles valeurs
+  selectedGenreId.value[type] = genreId;
+
+    // Restaurer l'autre type de genre à null
+  const otherType = type === 'movie' ? 'tv' : 'movie';
+  selectedGenreId.value[otherType] = null;
 
 
 
@@ -82,7 +88,7 @@ const handleLinkClick = (genreId, genreName, type) => {
         <template v-for="(genre, i) in genresMovie" :key="genre.id">
           <li 
             class="border-b-4 border-blue-800 px-1 py-0 cursor-pointer"
-            :class="{ 'mr-1' : i != genresMovie.length -1  }"> 
+            :class="{ 'mr-1' : i != genresMovie.length -1, 'bg-blue-800' : genre.id === selectedGenreId.movie, 'bg-transparent': selectedGenreId.movie !== genre.id }"> 
             <NuxtLink class="text-sm lg:text-base" @click="handleLinkClick(genre.id, genre.name, 'movie')">
               <span class="relative text-white">#{{ genre.name }}</span>
             </NuxtLink>
@@ -99,17 +105,17 @@ const handleLinkClick = (genreId, genreName, type) => {
         <template v-for="(genre, i) in genresTv" :key="genre.id">
           <li 
             class="border-b-4 border-blue-800 px-1 py-0 cursor-pointer"
-            :class="{ 'mr-1' : i != genresTv.length -1  }"> 
+            :class="{ 'mr-1' : i != genresTv.length -1, 'bg-blue-800' : genre.id === selectedGenreId.tv, 'bg-transparent': selectedGenreId.tv !== genre.id  }"> 
             <NuxtLink class="text-sm lg:text-base" @click="handleLinkClick(genre.id, genre.name, 'tv')">
               <span class="relative text-white">#{{ genre.name }}</span>
             </NuxtLink>
           </li>
         </template>
       </ul>
-      <div v-if="loadingContent" class="flex justify-center flew-wrap items-center">
+      <div v-if="loadingContent" class="flex justify-center flew-wrap items-center" style="height: 400px">
         <div class="loader"></div>
       </div>
-      <div v-else-if="!loadingContent && showSliderMovie" :id="selectedGenreId" class="genre-slider">
+      <div v-else-if="!loadingContent && showSliderMovie" :id="selectedGenreId.movie" class="genre-slider">
         <div class="mb-12">
            <div class="flex items-center justify-between">
             <h2 class="flex items-start text-white-600 mb-1 border-b-4 border-blue-800 inline-block" aria-label="Films populaires">
@@ -123,11 +129,11 @@ const handleLinkClick = (genreId, genreName, type) => {
               class="border-b-4 border-blue-800" 
               :to="`/genres/${state.id}?type=movie&name=${state.name.replace(/[% ]/g, match => match === '%' ? '' : '+').toLowerCase()}`" >Voir +</NuxtLink>
           </div>
-          <MovieOrTvSlider type="movie" theme="genre" :id="selectedGenreId" :key="selectedGenreId" />
+          <MovieOrTvSlider type="movie" theme="genre" :id="selectedGenreId.movie" :key="selectedGenreId.movie" />
         </div>
       </div>
-      <div v-else-if="!loadingContent && showSliderTv" :id="selectedGenreId" class="genre-slider">
-        <div class="mb-12">
+      <div v-else-if="!loadingContent && showSliderTv" :id="selectedGenreId.tv" class="genre-slider">
+        <div>
            <div class="flex items-center justify-between">
             <h2 class="flex items-start text-white-600 mb-1 border-b-4 border-blue-800 inline-block" aria-label="Films populaires">
                 <svg fill="currentColor" width="24" height="24" alt="Icône des séries TV">
@@ -139,7 +145,7 @@ const handleLinkClick = (genreId, genreName, type) => {
               class="border-b-4 border-blue-800" 
               :to="`/genres/${state.id}?type=tv&name=${state.name.replace(/[% ]/g, match => match === '%' ? '' : '+').toLowerCase()}`" >Voir +</NuxtLink>
           </div>
-          <MovieOrTvSlider type="tv" theme="genre" :id="selectedGenreId" :key="selectedGenreId" />
+          <MovieOrTvSlider type="tv" theme="genre" :id="selectedGenreId.tv" :key="selectedGenreId.tv" />
         </div>
       </div>
     </div>
