@@ -43,7 +43,7 @@
 
   <div 
     v-if="movies.length"
-    class="container max-w-7xl max-w-2xl mx-auto px-4 py-8 lg:max-w-7xl grid grid-cols-2 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    class="container max-w-7xl max-w-2xl mx-auto px-6 py-8 lg:max-w-7xl grid grid-cols-2 gap-y-10 gap-x-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 
     <MovieOrTvOrPersonCard :items="movies" :type="type" />
   </div>
