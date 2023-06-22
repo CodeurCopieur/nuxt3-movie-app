@@ -33,6 +33,22 @@ export default () => {
     return res.toLocaleDateString()
   }
 
+  const getCurrentHour = () => {
+    const now = new Date();
+    return now.getHours();
+  };
+
+  const getIncludeAdultValue = () => {
+    const currentHour = getCurrentHour();
+    if (currentHour >= 0 && currentHour < 2) {
+      return 'true';
+    } else {
+      return 'false';
+    }
+  };
+
+  const includeAdult = getIncludeAdultValue();
+
 
   const percent = (note)=> {
     var result = note/10*100;
@@ -52,12 +68,12 @@ export default () => {
       if(page) {
         // return useFetch(`${baseUrl}${get}?api_key=${apiKey}${page}`, { baseURL: baseUrl })
 
-        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc${page}&include_adult=false`)
+        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc${page}&include_adult=${includeAdult}`)
         const movies = response.data.results;
         return movies
       } else {
         // return useFetch(`${baseUrl}${get}?api_key=${apiKey}`, { baseURL: baseUrl })
-        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc`)
+        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc&include_adult=${includeAdult}`)
         const movies = response.data.results;
         return movies
       }
@@ -76,7 +92,7 @@ export default () => {
 
     const getDetails = async(type, getId) => {
       if (type && getId) {
-        const response = await axios.get(`${baseUrl}${type}/${getId}?api_key=${apiKey}&include_adult=false`)
+        const response = await axios.get(`${baseUrl}${type}/${getId}?api_key=${apiKey}&include_adult=${includeAdult}`)
         return response.data
       }
     }
@@ -84,7 +100,7 @@ export default () => {
     // Get All Genres: https://api.themoviedb.org/3/genre/movie/list?api_key={CURRENCY_API_KEY}
 
     const getGenres = async(type) => {
-      const response = await axios.get(`${baseUrl}genre/${type}/list?api_key=${apiKey}&include_adult=false`)
+      const response = await axios.get(`${baseUrl}genre/${type}/list?api_key=${apiKey}&include_adult=${includeAdult}`)
       return response
     };
 
@@ -92,7 +108,7 @@ export default () => {
 
     const reqDiscover = async(get, page, genre) => {
       if(page) {
-        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc${page}${genre}&include_adult=false`)
+        const response = await axios.get(`${baseUrl}${get}?api_key=${apiKey}&sort_by=popularity.desc${page}${genre}&include_adult=${includeAdult}`)
         const movies = response.data.results;
         return movies
       }
@@ -114,7 +130,7 @@ export default () => {
     // Search Movie or Person or Tv : https://api.themoviedb.org/3/search/{movie or tv or person }
     const search = async(keyword, value, page) => {
       if(value) {
-        const response = await axios.get(`${baseUrl}search/${keyword}?api_key=${apiKey}&query=${value}&page=${page}&sort_by=popularity.desc&include_adult=false`)
+        const response = await axios.get(`${baseUrl}search/${keyword}?api_key=${apiKey}&query=${value}&page=${page}&sort_by=popularity.desc&include_adult=${includeAdult}`)
         const movies = response.data.results;
         return movies
       }
@@ -122,7 +138,7 @@ export default () => {
 
     // Cast
     const credits = async(type, id) => {
-        const response = await axios.get(`${baseUrl}${type}/${id}/credits?api_key=${apiKey}&include_adult=false`)
+        const response = await axios.get(`${baseUrl}${type}/${id}/credits?api_key=${apiKey}&include_adult=${includeAdult}`)
         const infos = response.data
         const {cast, crew} = infos
 
@@ -130,7 +146,7 @@ export default () => {
     }
 
     const recommendations = async(type, id) => {
-      const response = await axios.get(`${baseUrl}${type}/${id}/recommendations?api_key=${apiKey}&include_adult=false`)
+      const response = await axios.get(`${baseUrl}${type}/${id}/recommendations?api_key=${apiKey}&include_adult=${includeAdult}`)
       const data = response.data
 
       const {results} = data
@@ -139,7 +155,7 @@ export default () => {
     }
 
     const personCredits = async(type, id) => {
-      const response = await axios.get(`${baseUrl}person/${id}/${type}_credits?api_key=${apiKey}&include_adult=false`)
+      const response = await axios.get(`${baseUrl}person/${id}/${type}_credits?api_key=${apiKey}&include_adult=${includeAdult}`)
       const data = response.data
       const {cast, crew} = data
 
