@@ -1,5 +1,5 @@
 <template>
- <footer class="bg-blue-800 footer">
+ <footer class="bg-blue-600 footer border-t">
     <div class="container max-w-screen-lg max-w-screen-xl lg:max-w-7xl mx-auto md:py-12 py-8 px-6">
       <h4 class="md:mb-4 mb-6">Empire Movies Nuxt</h4>
       <div class="flex md:mb-4 mb-6 text-sm">
