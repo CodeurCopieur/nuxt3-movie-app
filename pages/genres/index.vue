@@ -18,6 +18,9 @@ const showSliderMovie = ref(null);
 const showSliderTv = ref(null);
 const loadingContent = ref(false);
 
+const movieSliderRef = ref(null);
+const tvSliderRef = ref(null);
+
 const state = ref({
   id: null,
   name: '',
@@ -54,7 +57,12 @@ const handleLinkClick = (genreId, genreName, type) => {
   const otherType = type === 'movie' ? 'tv' : 'movie';
   selectedGenreId.value[otherType] = null;
 
+      // Déterminer quelle référence de slider utiliser en fonction du type
+      const sliderRef = type === 'tv' ? tvSliderRef.value : movieSliderRef.value;
 
+if (sliderRef) {
+sliderRef.scrollIntoView({ behavior: 'smooth' });
+}
 
   setTimeout(() => {
     loadingContent.value = false;
@@ -66,14 +74,13 @@ const handleLinkClick = (genreId, genreName, type) => {
       showSliderTv.value = null;
       showSliderMovie.value = true;
     }
-  }, 800)
+
+  }, 1000)
 };
 
 </script>
 <template>
 
-    
-<!-- <PageHeader title="Genre" type="Movie"></PageHeader> -->
   <section class="py-20 md:py-10 container max-w-7xl mx-auto">
 
     <div class="container max-w-screen-lg max-w-screen-xl mx-auto px-4 lg:max-w-7xl">
@@ -115,7 +122,7 @@ const handleLinkClick = (genreId, genreName, type) => {
       <div v-if="loadingContent" class="flex justify-center flew-wrap items-center" style="height: 400px">
         <div class="loader"></div>
       </div>
-      <div v-else-if="!loadingContent && showSliderMovie" :id="selectedGenreId.movie" class="genre-slider">
+      <div v-else-if="!loadingContent && showSliderMovie" :id="selectedGenreId.movie" class="genre-slider" ref="movieSliderRef">
         <div class="mb-12">
            <div class="flex items-center justify-between">
             <h2 class="flex items-start text-white-600 mb-1 border-b-4 border-blue-800 inline-block" aria-label="Films populaires">
@@ -132,7 +139,7 @@ const handleLinkClick = (genreId, genreName, type) => {
           <MovieOrTvSlider type="movie" theme="genre" :id="selectedGenreId.movie" :key="selectedGenreId.movie" />
         </div>
       </div>
-      <div v-else-if="!loadingContent && showSliderTv" :id="selectedGenreId.tv" class="genre-slider">
+      <div v-else-if="!loadingContent && showSliderTv" :id="selectedGenreId.tv" class="genre-slider" ref="tvSliderRef">
         <div>
            <div class="flex items-center justify-between">
             <h2 class="flex items-start text-white-600 mb-1 border-b-4 border-blue-800 inline-block" aria-label="Films populaires">
