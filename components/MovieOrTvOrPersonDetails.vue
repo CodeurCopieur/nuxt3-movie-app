@@ -28,6 +28,10 @@
     state.personCreditsTv = await useMoviesApi().personCredits('tv', `${id}`)
   }
 
+  if (!data) {
+    throw createError({ statusCode: 404, statusMessage: `${type} non trouvé`})
+  }
+
   // Fonction pour générer une URL d'image optimisée en fonction de la taille et du format
   const generateOptimizedImageUrl = (path, size) => {
     const baseUrl = 'https://image.tmdb.org/t/p/';
@@ -151,8 +155,8 @@
                 </span>
             </div>
           <!-- Person -->
-            <div class="text-sm text-base mb-6 flex items-center" v-if="type === 'person'">
-              <div class="flex flex-wrap items-center pr-2" v-if="data.birthday">
+            <div class="text-sm text-base mb-6 flex flex-col md:flex-row md:items-center" v-if="type === 'person'">
+              <div class="flex flex-wrap items-center pr-2 md:mb-0 mb-4" v-if="data.birthday">
                 <dt>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-slate-400 dark:text-slate-500" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -166,8 +170,8 @@
                 </dd>
               </div>
 
-              <div class="flex items-center pl-2"
-                :class="{'border-l-2' : data.birthday}" v-if="data.place_of_birth">
+              <div class="flex items-center pl-0 md:pl-2"
+                :class="{'md:border-l-2' : data.birthday}" v-if="data.place_of_birth">
                 <dt>
                   <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1 text-slate-400 dark:text-slate-500" aria-hidden="true">
                     <path d="M18 11.034C18 14.897 12 19 12 19s-6-4.103-6-7.966C6 7.655 8.819 5 12 5s6 2.655 6 6.034Z" />
