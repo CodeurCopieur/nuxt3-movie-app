@@ -7,16 +7,9 @@
   const movies = ref([]);
   const scrollingComponent = ref(null)
 
-  // const mainOffsetTRef = ref(null)
-  // const mainOffsetT = mainOffsetTRef.value
   movies.value = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`);
 
   async function loadMorePosts () {
-    // window.scrollTo({
-    //   top: mainOffsetT,
-    //   behavior: "smooth"
-    // })
-  
     page.value++
     const newMovies = await useMoviesApi().getMoviesD(`discover/${type}`, page.value, `${id}`)
     movies.value.push(...newMovies)
@@ -39,7 +32,7 @@
     scrollTriger()
   });
 </script>
-<template ref="mainOffsetTRef">
+<template>
 
   <div 
     v-if="movies.length"
