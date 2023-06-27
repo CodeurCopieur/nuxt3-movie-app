@@ -1,7 +1,7 @@
 <template>
  <footer class="bg-blue-600 footer border-t">
     <div class="container max-w-screen-lg max-w-screen-xl lg:max-w-7xl mx-auto md:py-12 py-8 px-6">
-      <h4 class="md:mb-4 mb-6">Empire Movies Nuxt</h4>
+      <h4 class="md:mb-4 mb-6">© 2023 Empire Movies Nuxt.Tous droits réservés</h4>
       <div class="flex md:mb-4 mb-6 text-sm">
         <span>Made With</span> <NuxtLink class="ml-2 border-b-2 border-white-800" to="https://v3.nuxtjs.org/" target="_blank" aria-label="Nuxt 3">Nuxt 3</NuxtLink>
       </div>
@@ -19,7 +19,7 @@
         </ul>
       </nav>
       <nav class="flex justify-end text-sm">
-        <ul class="flex flex-wrap flex-row gap-2.5 md:gap-4 ">
+        <ul class="flex flex-wrap md:flex-nowrap flex-row gap-2.5 md:gap-4 ">
           <li>
             <NuxtLink class="border-b-2" to="https://twitter.com/CodeurCopieur" target="_blank"  aria-label="Twitter">Twitter</NuxtLink>
           </li>
