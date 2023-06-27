@@ -1,7 +1,7 @@
 <template>
  <footer class="bg-blue-600 footer border-t">
     <div class="container max-w-screen-lg max-w-screen-xl lg:max-w-7xl mx-auto md:py-12 py-8 px-6">
-      <h4 class="md:mb-4 mb-6">© 2023 Empire Movies Nuxt.Tous droits réservés</h4>
+      <h4 class="md:mb-4 mb-6">© 2023 Empire Movies Nuxt3.Tous droits réservés</h4>
       <div class="flex md:mb-4 mb-6 text-sm">
         <span>Made With</span> <NuxtLink class="ml-2 border-b-2 border-white-800" to="https://v3.nuxtjs.org/" target="_blank" aria-label="Nuxt 3">Nuxt 3</NuxtLink>
       </div>
