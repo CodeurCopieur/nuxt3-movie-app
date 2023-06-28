@@ -40,7 +40,7 @@ export default () => {
 
   const getIncludeAdultValue = () => {
     const currentHour = getCurrentHour();
-    if (currentHour >= 2 && currentHour < 3) {
+    if (currentHour >= 3 && currentHour < 4) {
       return 'true';
     } else {
       return 'false';
