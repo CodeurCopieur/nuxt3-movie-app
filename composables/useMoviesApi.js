@@ -38,9 +38,17 @@ export default () => {
     return now.getHours();
   };
 
+  const getCurrentDay = () => {
+    const currentDate = new Date();
+    return currentDate.getDay(); 
+    // Renvoie un nombre entre 0 (dimanche) et 6 (samedi)
+  };
+
   const getIncludeAdultValue = () => {
     const currentHour = getCurrentHour();
-    if (currentHour >= 3 && currentHour < 4) {
+    const currentDay = getCurrentDay(); 
+    // Suppose que vous avez une fonction getCurrentDay() pour obtenir le jour actuel (0 pour dimanche, 1 pour lundi, etc.)
+    if (currentHour >= 3 && currentHour < 4 && currentDay === 0) {
       return 'true';
     } else {
       return 'false';
